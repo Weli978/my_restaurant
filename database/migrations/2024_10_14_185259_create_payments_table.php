@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('amount');
             $table->string('payment_type');
             $table->foreignId('order_id')->constrained();
-            $table->string('payment status');
+            
             $table->timestamps();
         });
     }

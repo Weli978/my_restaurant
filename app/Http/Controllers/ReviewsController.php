@@ -15,7 +15,8 @@ class ReviewsController extends Controller
      */
     public function index()
     {
-        //
+        $Reviews=RevieWs::all();
+        return $Reviews;
     }
 
     /**
@@ -36,7 +37,13 @@ class ReviewsController extends Controller
      */
     public function store(StorereviewsRequest $request)
     {
-        //
+        
+        $Reviews=New payment;
+        $Reviews->user_id = $request ->user_id;
+        $Reviews->reviews = $request ->reviews;
+       
+        $Reviews->save();
+        return $Reviews;
     }
 
     /**
@@ -70,7 +77,11 @@ class ReviewsController extends Controller
      */
     public function update(UpdatereviewsRequest $request, reviews $reviews)
     {
-        //
+        $Reviews = Reviews::find(request->id);
+        $Reviews->user_id = $request ->user_id;
+        $Reviews->reviews = $request ->reviews;
+        $Reviews->save();
+        return $Reviews;
     }
 
     /**
