@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\orders;
+use App\Models\user;
+use App\Models\orderdetails;
+use App\Models\menu;
 use App\Http\Requests\StoreordersRequest;
 use App\Http\Requests\UpdateordersRequest;
 
@@ -18,7 +21,20 @@ class OrdersController extends Controller
         $orders=Orders::all();
         return $orders;
     }
-
+    public function getOrderDetails($order_id){
+        $order = Orders::find($order_id);
+        //user 
+        $order->user = User::find($order->user_id);
+        //order details
+        $order->order_details = OrderDetails::where('order_id', $order->id)->get();
+        //menu
+        foreach ($order->order_details as $order_detail){
+            $menu = Menu::find($order_detail->menu_id);
+            $order_detail->menu_name = $menu->name;
+            $order_detail->menu_price = $menu->price;
+        }
+        return $order;
+    }		
     /**
      * Show the form for creating a new resource.
      *
